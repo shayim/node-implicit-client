@@ -1,6 +1,13 @@
 const path = require('path')
 const Koa = require('koa')
+const bodyParser = require('koa-body')
 const render = require('koa-ejs')
+const mongoose = require('mongoose')
+
+const clientController = require('./controllers/client.controller')
+
+mongoose.connect('mongodb://localhost:27017/miasystem')
+  .then(m => console.log('mongodb connected'))
 
 const app = new Koa()
 render(app, {
@@ -8,19 +15,16 @@ render(app, {
   async: true
 })
 
-app.use((ctx) => {
-  ctx.body = ctx.req.url
+app.use(bodyParser())
+app.use(clientController.routes())
+
+app.on('error', (err, ctx) => {
+  console.log(err.expose)
+  ctx.body = {
+    message: err
+  }
 })
 
 const Host = 'localhost'
-const Port = 3001
-app.listen(Port, Host, () => console.log('client is starting'))
-
-/*
-
-https: //expat-ins.com/#id_token=eyJ...Lx_&expires_in=3600
-  &
-  token_type = Bearer &
-  session_state = efab0776b4d1c3312cb924414590853eb27656ad78eb2c7cbdd0440f885437c4
-
-  */
+const Port = process.env.PORT || 5757
+app.listen(Port, Host, () => console.log(`client is starting at port ${Port}`))

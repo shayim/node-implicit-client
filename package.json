@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon ./src/server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -11,6 +12,9 @@
   "license": "ISC",
   "dependencies": {
     "koa": "^2.7.0",
-    "koa-ejs": "^4.2.0"
+    "koa-body": "^4.1.0",
+    "koa-ejs": "^4.2.0",
+    "koa-router": "^7.4.0",
+    "mongoose": "^5.4.19"
   }
 }

@@ -1,9 +1,0 @@
-
-https://expat-ins.com
-proxy / 127.0.0.1:3001 {
-  transparent
-}
-tls self_signed
-root d:\caddy
-log d:\caddy\logs\access.log
-errors d:\caddy\logs\error.log
